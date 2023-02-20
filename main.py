@@ -67,39 +67,26 @@ def settings():
 def rainbow():
     number = randint(1, 16)
     global color
-    if number == 1:
-        color = Fore.RED
-    elif number == 2:
-        color = Fore.YELLOW
-    elif number == 3:
-        color = Fore.CYAN
-    elif number == 4:
-        color = Fore.BLACK
-    elif number == 5:
-        color = Fore.GREEN
-    elif number == 6:
-        color = Fore.WHITE
-    elif number == 7:
-        color = Fore.MAGENTA
-    elif number == 8:
-        color = Fore.BLUE
-    elif number == 9:
-        color = Fore.LIGHTRED_EX
-    elif number == 10:
-        color = Fore.LIGHTYELLOW_EX
-    elif number == 11:
-        color = Fore.LIGHTCYAN_EX
-    elif number == 12:
-        color = Fore.LIGHTBLACK_EX
-    elif number == 13:
-        color = Fore.LIGHTGREEN_EX
-    elif number == 14:
-        color = Fore.LIGHTWHITE_EX
-    elif number == 15:
-        color = Fore.LIGHTMAGENTA_EX
-    elif number == 16:
-        color = Fore.LIGHTBLUE_EX
+ color_map = {
+    1: Fore.RED,
+    2: Fore.YELLOW,
+    3: Fore.CYAN,
+    4: Fore.BLACK,
+    5: Fore.GREEN,
+    6: Fore.WHITE,
+    7: Fore.MAGENTA,
+    8: Fore.BLUE,
+    9: Fore.LIGHTRED_EX,
+    10: Fore.LIGHTYELLOW_EX,
+    11: Fore.LIGHTCYAN_EX,
+    12: Fore.LIGHTBLACK_EX,
+    13: Fore.LIGHTGREEN_EX,
+    14: Fore.LIGHTWHITE_EX,
+    15: Fore.LIGHTMAGENTA_EX,
+    16: Fore.LIGHTBLUE_EX
+}
 
+color = color_map.get(number)
 def artwork(type):
     global rainbowmode
     if type == "open":
