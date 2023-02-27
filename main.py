@@ -67,7 +67,7 @@ def settings():
 def rainbow():
     number = randint(1, 16)
     global color
- color_map = {
+    color_map = {
     1: Fore.RED,
     2: Fore.YELLOW,
     3: Fore.CYAN,
