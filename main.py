@@ -1,25 +1,13 @@
-import time
+import time, sys, os, json
 from random import randint
 rainbowmode = False
 from colorama import Fore
-import sys
-import os
 
 color = Fore.RED
 
-if True:
-    checkrainbowmode = 'rainbowmode=true'
-    settingsfile = open("settings.txt", 'r+')
-    readfilesize = 'settings.txt'
-    if os.stat(readfilesize).st_size == 0:
-        with settingsfile as f:
-            f.write("rainbowmode=false")
-    if checkrainbowmode in settingsfile:
-        rainbowmode = True
-
-    settingsfile.close()
-
-
+with open("settings.json") as f:
+    data = json.load(f)
+rainbowmode = data['rainbow']
 string1 = """
                          ______                     
  _________        .---\"\"\"      \"\"\"---.              
@@ -84,9 +72,10 @@ def rainbow():
     14: Fore.LIGHTWHITE_EX,
     15: Fore.LIGHTMAGENTA_EX,
     16: Fore.LIGHTBLUE_EX
-}
+    }
 
-color = color_map.get(number)
+    color = color_map.get(number)
+
 def artwork(type):
     global rainbowmode
     if type == "open":
@@ -189,30 +178,36 @@ while True:
 
     elif cmd == "rainbowmode y":
         rainbowmode = True
-        lines = []
-        with open(r"settings.txt", 'r') as fp:
-            lines = fp.readlines()
+        data['rainbow'] = True
+        #lines = []
+        #with open(r"settings.txt", 'r') as fp:
+        #    lines = fp.readlines()
 
 
-        with open(r"settings.txt", 'w') as fp:
-            for number, line in enumerate(lines):
-                if number not in [0]:
-                    fp.write(line)
-            fp.write("rainbowmode=true")
+        #with open(r"settings.txt", 'w') as fp:
+        #    for number, line in enumerate(lines):
+        #        if number not in [0]:
+        #            fp.write(line)
+        #    fp.write("rainbowmode=true")
+        with open("settings.json") as f:
+            json.dump(data, f, indent=4)
         print("Rainbowmode has been turned on!")
 
     elif cmd == "rainbowmode n":
         rainbowmode = False
-        lines = []
-        with open(r"settings.txt", 'r') as fp:
-            lines = fp.readlines()
+        data['rainbow'] = False
+        #lines = []
+        #with open(r"settings.txt", 'r') as fp:
+        #    lines = fp.readlines()
 
 
-        with open(r"settings.txt", 'w') as fp:
-            for number, line in enumerate(lines):
-                if number not in [0]:
-                    fp.write(line)
-            fp.write("rainbowmode=false")
+        #with open(r"settings.txt", 'w') as fp:
+        #    for number, line in enumerate(lines):
+        #        if number not in [0]:
+        #            fp.write(line)
+        #    fp.write("rainbowmode=false")
+        with open("settings.json", "wb") as f:
+            json.dump(data, f, indent=4)
         print("Rainbowmode has been turned off!")
     elif cmd == "quit":
         quit(type="")
@@ -223,5 +218,5 @@ while True:
     elif cmd == "ssh -c":
         ssh(type="create")
     else:
-        print("That ain't a command!")
+        ssh(type="help")
 
